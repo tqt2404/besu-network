@@ -1,0 +1,77 @@
+{
+  "config": {
+    "chainId": 1337,
+    "berlinBlock": 0,
+    "londonBlock": 0,
+    "shanghaiTime": 0,
+    "cancunTime": 0,
+    "qbft": {
+      "blockperiodseconds": 5,
+      "epochlength": 30000,
+      "requesttimeoutseconds": 10
+    }
+  },
+  "nonce": "0x0",
+  "timestamp": "0x0",
+  "extraData": "0x3aadb7622f0d0c9b2444b12cef7329f599397566",
+  "gasLimit": "0x1fffffffffffff",
+  "difficulty": "0x1",
+  "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+  "coinbase": "0x0000000000000000000000000000000000000000",
+  "alloc": {
+    "fe3b557e8fb62b89f4916b721be55ceb828dbd73": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "627306090abaB3A6e1400e9345bC60c78a8BEf57": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "f17f52151EbEF6C7334FAD080c5704D77216b732": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "1a86ae741b8e3e5a9d6031d39adaf002b76358cf": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "1f4598089179bc96f68bf25e5fb5777e3a368f9b": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "2ef4f7c37d7582c023519cac0525738fb74369c8": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "28c5868ea70137426354fb3e7f23693f796971f3": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "2e9b7f4673820d876a6947ed248eb19c696ce647": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "f90f609641556fe13c6ce3367f613f58db36abdf": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "29eff67d72743958cb616c8602bcd57ecc426ff7": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "1fcfd46e4525ef39f8767b5f9be6d28c2833a4ef": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "38045e5f81295ee234fa2331ece78b77c15ff421": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "2bae1c81e72a4715471d3ba59c1e3dbd0e01e4c0": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "bfd44db6ccfb0a706d1ff0c6e15650ddcedc0c4c": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "af0d82e48d39b0ac99b1c079c0bd51f853218f17": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "3255a130d223b364de33c6d1110907da328cf6a1": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "770a77de5162ac5dea19e9503d82a37e6f774f37": {
+      "balance": "0xad78ebc5ac6200000"
+    },
+    "3aadb7622f0d0c9b2444b12cef7329f599397566": {
+      "balance": "0xad78ebc5ac6200000"
+    }
+  }
+}

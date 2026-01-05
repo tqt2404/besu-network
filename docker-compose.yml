@@ -1,0 +1,120 @@
+version: '3.8'
+
+x-besu-def: &besu-def
+  image: hyperledger/besu:latest
+  restart: unless-stopped
+  volumes:
+    - ./config:/config:ro
+  environment:
+    - BESU_OPTS=-Xmx1g -Xms256m
+
+services:
+  # --- VALIDATOR 1 (BOOTNODE) ---
+  validator1:
+    <<: *besu-def
+    container_name: validator1
+    volumes:
+      - ./config:/config:ro
+      - ./data/validator1:/data
+    command:
+      - --genesis-file=/config/genesis.json
+      - --network-id=1337
+      - --data-path=/data
+      - --node-private-key-file=/data/key
+      - --p2p-enabled=true
+      - --p2p-host=172.16.238.10
+      - --p2p-port=30303
+      - --min-gas-price=0
+    networks:
+      besu_net:
+        ipv4_address: 172.16.238.10 
+
+  # --- VALIDATOR 2 ---
+  validator2:
+    <<: *besu-def
+    container_name: validator2
+    volumes:
+      - ./config:/config:ro
+      - ./data/validator2:/data
+    command:
+      - --genesis-file=/config/genesis.json
+      - --network-id=1337
+      - --data-path=/data
+      - --node-private-key-file=/data/key
+      - --p2p-enabled=true
+      - --p2p-port=30303
+      - --min-gas-price=0
+      - --bootnodes=${BESU_BOOTNODE}
+    networks:
+      - besu_net
+    depends_on:
+      - validator1
+
+  # --- VALIDATOR 3 ---
+  validator3:
+    <<: *besu-def
+    container_name: validator3
+    volumes:
+      - ./config:/config:ro
+      - ./data/validator3:/data
+    command:
+      - --genesis-file=/config/genesis.json
+      - --network-id=1337
+      - --data-path=/data
+      - --node-private-key-file=/data/key
+      - --p2p-enabled=true
+      - --p2p-port=30303
+      - --min-gas-price=0
+      - --bootnodes=${BESU_BOOTNODE}
+    networks:
+      - besu_net
+    depends_on:
+      - validator1
+
+  # --- RPC NODE ---
+  rpc:
+    <<: *besu-def
+    container_name: rpc
+    volumes:
+      - ./config:/config:ro
+      - ./data/rpc:/data
+    command:
+      - --genesis-file=/config/genesis.json
+      - --network-id=1337
+      - --data-path=/data
+      - --node-private-key-file=/data/key
+      - --p2p-enabled=true
+      - --p2p-port=30303
+      - --min-gas-price=0
+      - --bootnodes=${BESU_BOOTNODE}
+      - --rpc-http-enabled=true
+      - --rpc-http-host=0.0.0.0
+      - --rpc-http-port=8545
+      - --rpc-http-cors-origins=*
+      - --host-allowlist=*
+      - --rpc-http-api=ETH,NET,QBFT,WEB3,DEBUG,ADMIN,TXPOOL,TRACE
+    networks:
+      - besu_net
+    ports:
+      - "8545:8545" # Map ra máy thật để Odoo kết nối
+    depends_on:
+      - validator1
+
+  # --- EXPLORER ---
+  explorer:
+    image: alethio/ethereum-lite-explorer:latest
+    container_name: explorer
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    environment:
+      - APP_NODE_URL=http://localhost:8545
+    networks:
+      - besu_net
+
+networks:
+  besu_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24

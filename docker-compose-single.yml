@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  validator1:
+    image: hyperledger/besu:latest
+    container_name: validator1
+    restart: no
+    volumes:
+      - ./data/validator1:/data
+      - ./config:/config:ro
+    environment:
+      - BESU_OPTS=-Xmx1024m -Xms256m
+    command:
+      - --genesis-file=/config/genesis.json
+      - --network-id=1337
+      - --data-path=/data
+      - --node-private-key-file=/data/key
+      - --rpc-http-enabled=true
+      - --rpc-http-host=0.0.0.0
+      - --rpc-http-port=8545
+      - --rpc-http-cors-origins="*"
+      - --host-allowlist="*"
+      - --rpc-http-api=ETH,NET,QBFT,WEB3,DEBUG,ADMIN,TXPOOL,TRACE
+      - --min-gas-price=0
+      - --p2p-enabled=true
+      - --p2p-host=0.0.0.0
+      - --p2p-port=30303
+    ports:
+      - "8545:8545"
+      - "30303:30303"
+
+  explorer:
+    image: alethio/ethereum-lite-explorer:latest
+    container_name: explorer
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+
+    environment:
+      # Biến này ép Explorer kết nối với Node Besu của bạn
+      - APP_NODE_URL=http://localhost:8545

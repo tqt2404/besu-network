@@ -1,0 +1,31 @@
+# Besu Configuration for Latest Version
+
+# Network
+genesis-file="/config/genesis.json"
+network-id=1337
+
+# P2P
+p2p-enabled=true
+discovery-enabled=true
+p2p-port=30303
+
+# RPC HTTP
+rpc-http-enabled=true
+rpc-http-api=["ETH","NET","QBFT","WEB3","DEBUG","ADMIN","TXPOOL","TRACE"]
+rpc-http-cors-origins=["*"]
+rpc-http-host="0.0.0.0"
+rpc-http-port=8545
+
+# Metrics
+metrics-enabled=true
+metrics-host="0.0.0.0"
+metrics-port=9545
+
+# Logging
+logging="INFO"
+
+# Host allowlist
+host-allowlist=["*"]
+
+# Storage
+data-storage-format="BONSAI"
