@@ -71,6 +71,26 @@ services:
     depends_on:
       - validator1
 
+  validator4:
+  <<: *besu-def
+  container_name: validator4
+  volumes:
+    - ./config:/config:ro
+    - ./data/validator4:/data
+  command:
+    - --genesis-file=/config/genesis.json
+    - --network-id=1337
+    - --data-path=/data
+    - --node-private-key-file=/data/key
+    - --p2p-enabled=true
+    - --p2p-port=30303
+    - --min-gas-price=0
+    - --bootnodes=${BESU_BOOTNODE}
+  networks:
+    - besu_net
+  depends_on:
+    - validator1
+  
   # --- RPC NODE ---
   rpc:
     <<: *besu-def
@@ -96,7 +116,7 @@ services:
     networks:
       - besu_net
     ports:
-      - "8545:8545" # Map ra máy thật để Odoo kết nối
+      - "8545:8545" 
     depends_on:
       - validator1
 
